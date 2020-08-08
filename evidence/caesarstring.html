@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Project Evidence</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .flex-container > div {
+          background-color: #6ad5cb;
+          width: 500px;
+          margin: 10px;
+          text-align: center;
+          line-height: 50px;
+          font-size: 30px;
+        }
+
+        .flex-container > div > span {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+<div class="navigation">
+    <ul>
+        <li>
+            <a href="index.html"><img class="navimage" width="90px" src="images/mainicon.jpg"></a>
+        </li>
+        <li>
+            <a class="navlink" href="index.html">Back to Menu</a>
+        </li>
+    </ul>
+</div>
+<h1>Perform A Caesar Cipher On A String</h1>
+
+<p>This is where it all comes together - I want to loop over a string and perform a Caesar Cipher, then output the result</p>
+
+
+<div class="flex-container">
+    <div id="divResult"></div>
+</div>
+
+    <a href="javascript:viewSource();">View Source</a>
+    <script>
+
+    //This variable holds the string that we're going to perform the Caesar Cipher on
+    var theString = "Hello World, with a Z and a z";
+    
+    //This variable holds each character code in the input text
+    var charCodeInput;
+
+    //This variable holds each character code in the output text
+    var charCodeOutput;
+    
+    //This variable holds the character that is the result of performing the Caesar Cipher on each character
+    var charOutput;
+        
+    //This variable holds the output string
+    var outputString="";
+    
+    //This variable holds the cipher key (how many characters do we 'move' each character by)
+    var cipherKey=21;
+        
+    //We will loop over each character in the string, get the character code, perform the Caesar cipher with a key and then build up the output string
+    
+    //This variable is used to loop over each character in the string
+    var charCounter;
+        
+    //This loop runs for each character in the string - it starts at 0 because the charCodeAt() function starts at 0 as well
+    for (charCounter = 0; charCounter < theString.length; charCounter++) {
+        //Get the character code
+        charCodeInput = theString.charCodeAt(charCounter);
+        
+        //Perform the Caesar Cipher on the character code and get the new code back
+        charCodeOutput=caesarCipher(charCodeInput,cipherKey);
+        
+        //Turn the new code into a character
+        charOutput=String.fromCharCode(charCodeOutput);
+        
+        //Add the new character to the end of the output string
+        outputString+=charOutput;
+        }
+    
+    //Show the results
+    showResultWithNewline (outputString);
+
+        
+    //This function takes a character code and a cipher key, and performs the caesar cipher
+    function caesarCipher(code, key){
+        //We only want to perform the cipher on A-Z (character codes 65-90) and a-z (character codes 97-122)
+        //For any other character code we don't do anything so we just return it unaltered
+        var minUpper=65;
+        var maxUpper=90;
+        var minLower=97;
+        var maxLower=122;
+        
+        //This variable holds the new code after the cipher has been carried out
+        var newCode;
+        
+        //This checks if the character code is one of the codes we care about
+        if ((code>=minUpper && code<=maxUpper) || (code>=minLower && code<=maxLower)){
+            //This is a character code that we need to shift by the amount of characters specified in the key
+            
+            //Carry out the cipher by moving the number of characters specified in the key
+            newCode = code + key;
+            
+            //We need to be careful not to move past Z or z.  Instead, we have to wrap around to the start of the range
+            if (code>=minUpper && code<=maxUpper){
+                //We were given an upper case character so let's check if the new code has gone past Z
+                if (newCode > maxUpper){
+                    //We've gone past Z so we need to work backwards rather than forwards
+                    newCode = code - (26-key);
+                }
+            }
+            else {
+                //We were given a lower case character so let's check if the new code has gone past z
+                if (newCode > maxLower){
+                    //We've gone past Z so we need to work backwards rather than forwards
+                    newCode = code - (26-key);
+                }
+            }
+        }
+        else{
+            //Don't touch this character as it's not one we care about
+            //Just return it unaltered
+            newCode = code;
+        }
+        return (newCode);
+    }
+        
+        
+    //This function adds the supplied string to the end of what's already in the div
+    function showResultWithNewline(TextToShow) {
+      document.getElementById("divResult").innerHTML += TextToShow + "<br/>";
+    }
+
+    function viewSource(){;
+        var source = "<html>";
+        source += document.getElementsByTagName('html')[0].innerHTML;
+        source += "</html>";
+        source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        source = "<pre>"+source+"</pre>";
+        sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+        sourceWindow.document.write(source);
+        sourceWindow.document.close(); 
+        if(window.focus) sourceWindow.focus();
+    }  
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Project Evidence</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .flex-container > div {
+          background-color: #6ad5cb;
+          width: 500px;
+          margin: 10px;
+          text-align: center;
+          line-height: 50px;
+          font-size: 30px;
+        }
+
+        .flex-container > div > span {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+<div class="navigation">
+    <ul>
+        <li>
+            <a href="index.html"><img class="navimage" width="90px" src="images/mainicon.jpg"></a>
+        </li>
+        <li>
+            <a class="navlink" href="index.html">Back to Menu</a>
+        </li>
+    </ul>
+</div>
+<h1>Getting The Character Code For A Single Character</h1>
+
+<p>Every text character is represented by a number.  I want to be able to get the character code for each character in a string and then increase it by the cipher's key.  In order to do this, I need to be able to get a character code for a single character.</p>
+
+
+<div class="flex-container">
+    <div id="divResult"></div>
+</div>
+
+<a href="javascript:viewSource();">View Source</a>
+    <script>
+      function viewSource(){;
+            var source = "<html>";
+            source += document.getElementsByTagName('html')[0].innerHTML;
+            source += "</html>";
+            source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            source = "<pre>"+source+"</pre>";
+            sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+            sourceWindow.document.write(source);
+            sourceWindow.document.close(); 
+            if(window.focus) sourceWindow.focus();
+        }  
+
+    //This variable holds the character code 
+    var charCode;
+
+    //I want to find out the character codes for A and Z, and also for a and z as the codes for upper and lower case characters are different
+        
+    //Get the character code for an upper-case 'A'    
+    charCode = getCharacterCode("A");
+        
+    //Display the character code
+    showResultWithNewline ("The character code for 'A' is " + charCode);
+
+    //Get the character code for an upper-case 'Z'    
+    charCode = getCharacterCode("Z");
+        
+    //Display the character code
+    showResultWithNewline ("The character code for 'Z' is " + charCode);
+
+    //Get the character code for a lower-case 'a'    
+    charCode = getCharacterCode("a");
+
+    //Display the character code
+    showResultWithNewline ("The character code for 'a' is " + charCode);
+
+    //Get the character code for a lower-case 'z'    
+    charCode = getCharacterCode("z");
+
+    //Display the character code
+    showResultWithNewline ("The character code for 'z' is " + charCode);
+    
+    //This function returns the character code for a single character
+    function getCharacterCode(textCharacter){
+        //The charCodeAt function returns the character code of the character at a specific position
+        //I'm presuming in this example that we just want to use the first character in textCharacter
+        return textCharacter.charCodeAt(0);
+    }
+    
+    //This function adds the supplied string to the end of what's already in the div
+    function showResultWithNewline(TextToShow) {
+      document.getElementById("divResult").innerHTML += TextToShow + "<br/>";
+    }
+
+    
+</script>
+    </body>
+</html>

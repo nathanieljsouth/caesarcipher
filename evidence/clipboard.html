@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Project Evidence</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .flex-container > div {
+          background-color: #6ad5cb;
+          width: 500px;
+          margin: 10px;
+          text-align: center;
+          line-height: 50px;
+          font-size: 30px;
+        }
+
+        .flex-container > div > span {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+<div class="navigation">
+    <ul>
+        <li>
+            <a href="index.html"><img class="navimage" width="90px" src="images/mainicon.jpg"></a>
+        </li>
+        <li>
+            <a class="navlink" href="index.html">Back to Menu</a>
+        </li>
+    </ul>
+</div>
+<h1>Copying To The Clipboard</h1>
+
+<p>I wanted to make it really easy for users to copy the results of applying the Caesar Cipher to the clipboard, so I had to be able to copy text to the cliboard using javascript.</p>
+
+
+<div class="flex-container">
+    <div>
+        <input type="text" id="dataClipboard"/>
+        <button type="button" onclick="copyTextToClipboard()">Copy to clipboard</button>
+    </div>
+</div>
+<p>Try copying some text to the clipboard and then pasting it into Notepad</p>
+    <a href="javascript:viewSource();">View Source</a>
+    <script>
+          function viewSource(){;
+            var source = "<html>";
+            source += document.getElementsByTagName('html')[0].innerHTML;
+            source += "</html>";
+            source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            source = "<pre>"+source+"</pre>";
+            sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+            sourceWindow.document.write(source);
+            sourceWindow.document.close(); 
+            if(window.focus) sourceWindow.focus();
+        }  
+        
+        //This function copies the text in the textbox to the clipboard
+        function copyTextToClipboard(){
+            //Get the text that we want to copy to the clipboard
+            var textToCopy = document.getElementById("dataClipboard").value;
+            
+            //Copy it to the clipboard
+            navigator.clipboard.writeText(textToCopy);
+            
+            //Tell the user that we've copied it
+            alert('Text has been copied to the clipboard');
+        }
+    </script>
+</body>
+</html>

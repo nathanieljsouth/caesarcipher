@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Project Evidence</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .flex-container > div {
+          background-color: #6ad5cb;
+          width: 500px;
+          margin: 10px;
+          text-align: center;
+          line-height: 50px;
+          font-size: 30px;
+        }
+
+        .flex-container > div > span {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+<div class="navigation">
+    <ul>
+        <li>
+            <a href="index.html"><img class="navimage" width="90px" src="images/mainicon.jpg"></a>
+        </li>
+        <li>
+            <a class="navlink" href="index.html">Back to Menu</a>
+        </li>
+    </ul>
+</div>
+<h1>Getting The Character From A Character Code</h1>
+
+<p>I need to be able to get the character from a character code, so this example shows how to get the character from a specific character code.  I learned that the codes for lower and upper case characters are different.</p>
+
+
+<div class="flex-container">
+    <div id="divResult"></div>
+</div>
+
+
+<p>Try resizing the browser window.</p>
+
+    <a href="javascript:viewSource();">View Source</a>
+    <script>
+      function viewSource(){;
+            var source = "<html>";
+            source += document.getElementsByTagName('html')[0].innerHTML;
+            source += "</html>";
+            source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            source = "<pre>"+source+"</pre>";
+            sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+            sourceWindow.document.write(source);
+            sourceWindow.document.close(); 
+            if(window.focus) sourceWindow.focus();
+        }  
+
+    //This variable holds the character code 
+    var charFromCode;
+
+    //Get the character for 65 (should be 'A')
+    charFromCode = getCharacterFromCode(65);
+        
+    //Display the character code
+    showResultWithNewline ("The character for code 65 is " + charFromCode);
+
+    //Get the character for 90 (should be 'Z')
+    charFromCode = getCharacterFromCode(90);
+        
+    //Display the character code
+    showResultWithNewline ("The character for code 90 is " + charFromCode);
+
+    //Get the character for 97 (chould be 'a')
+    charFromCode = getCharacterFromCode(97);
+
+    //Display the character code
+    showResultWithNewline ("The character for code 97 is " + charFromCode);
+
+    //Get the character for 122 (chould be 'z')
+    charFromCode = getCharacterFromCode(122);
+
+    //Display the character code
+    showResultWithNewline ("The character for code 122 is " + charFromCode);
+
+    
+    
+    //This function returns the character for a given character code
+    function getCharacterFromCode(code){
+        //The String.fromCharCode function returns the character
+        return String.fromCharCode(code);
+    }
+    
+    //This function adds the supplied string to the end of what's already in the div
+    function showResultWithNewline(TextToShow) {
+      document.getElementById("divResult").innerHTML += TextToShow + "<br/>";
+    }
+
+    
+</script>
+</body>
+</html>
