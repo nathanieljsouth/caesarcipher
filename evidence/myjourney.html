@@ -30,6 +30,6 @@
 <p>Decryption - I was inspired by the circular wheel design of my icon.  I recognised that there are two ways to decrypt a Caesar Cipher.  You can either reverse the encryption by the same key value (so encrypt with a key of 5 and decrypt with a key of -5), or you can encrypt with a key of 5 and encrypt again with a key of 21 to fully rotate the cipher back to the original values.  By using this 'encrypt twice' approach for decryption, I can simply use exactly the same code for encryption and decryption, minimising the required code and reducing the chance of errors. </p>
 <p>I found using Github's planner boards really useful as it allowed me to plan my work really clearly.  Also, when I discovered something that I needed to add, the board gave me the perfect place to record it.  I liked the way the board encourages me to move through the stages of development , test and completion.  Here's a screenshot of my board while I was building the app.</p>
 <img width="100%" src="images/planner1.png"><br/>
-    
+<p>The 'value' property of the number input field actually returns a string, not the numeric value.  This meant that I had to convert it to a number (using the Number() menthod) before using it in math operations.  This caused me some testing and debugging pain!</p>
 </body>
 </html>

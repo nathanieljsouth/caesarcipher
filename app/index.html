@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="flexboxstyle.css">
+</head>
+
+<body>
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="index.html"><img class="navimage" title="Reminder List" width="90px" src="images/mainicon.jpg"></a>
+            </li>
+            <li>
+                Caesar Cipher
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <p class="sectionheader">Enter some text to encrypt or decrypt, select a key and then hit the appropriate button!</p>
+        <p>Click the output textbox to copy the results to the clipboard.</p>
+        <p>The 'Brute Force' button decrypts the input using all possible keys.</p>
+        <br/>
+       
+    </div>
+    <div class="form">
+        <label>Input</label> <textarea id="userInput"></textarea><br/><br/><br/>
+        <label>Key</label> <input type="number" id="cipherKey" min="1" max="25" value="1" onchange="displayMap();" onInput="checkInput(this);"/><br/><br/>
+        <label>Map</label> <textarea id="keyMap" readonly></textarea><br/><br/><br/>
+        <label>Output</label> <textarea class="resizable" id="output" onclick="copyToClipboard();" readonly></textarea><br/><br/><br>
+        <div>
+        <a class="buttonLeft" href="javascript:encrypt();">Encrypt!</a> 
+        <a class="buttonRight" href="javascript:decrypt();">Decrypt!</a>
+        <a class="buttonCentre" href="javascript:bruteforcedecrypt();">Brute Force Decrypt!</a><br/><br/>
+        </div>
+        <div id="divMessage" class="message"></div>
+    </div>
+    
+    <script>
+
+        //Show the cipher key map
+        displayMap();
+        
+        //Encrypt the user input using the given cipher key
+        function encrypt(){
+            //This variable holds the user input text
+            var userInput = document.getElementById("userInput").value;
+
+            //This variable holds the cipher key (how many characters do we 'move' each character by)
+            var cipherKey=Number(document.getElementById("cipherKey").value);
+            
+            //This variable holds the encrypted string
+            var outputString = caesarCipherString(userInput, cipherKey);
+
+            //Show the results
+            document.getElementById("output").value = outputString;
+        }
+        
+        //Decrypt the user input (which is assumed to have been encrypted using the given key)
+        function decrypt(){
+            //This variable holds the user input text
+            var userInput = document.getElementById("userInput").value;
+
+            //This variable holds the cipher key (how many characters do we 'move' each character by)
+            var cipherKey=Number(document.getElementById("cipherKey").value);
+            
+            //This variable holds the decrypted string - We encrypt with 26-key to decrypt the string
+            var outputString = caesarCipherString(userInput, 26-cipherKey);
+
+            //Show the results
+            document.getElementById("output").value = outputString;      
+        }
+        
+        //This function loops over every possible cipher key and displays the results
+        function bruteforcedecrypt(){
+            //This variable holds the user input text
+            var userInput = document.getElementById("userInput").value;
+
+            //Clear out the output textbox
+            document.getElementById("output").value = "";
+            
+            //This variable holds the cipher key (how many characters do we 'move' each character by)
+            var cipherKey;
+            
+            //We will take each key in turn and display the results
+            for (cipherKey = 1; cipherKey < 26; cipherKey++) {
+                //This variable holds the decrypted string - We encrypt with 26-key to decrypt the string
+                var outputString = caesarCipherString(userInput, 26-cipherKey);
+
+                //Show the results along with the key that was used to get them on a new line
+                document.getElementById("output").value += cipherKey + ' : ' + outputString + '\n';               
+            }
+        }
+        
+        //Show the user the cipher map for this key
+        function displayMap(){
+            //This variable holds the user input text
+            var userInput = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+            //This variable holds the cipher key (how many characters do we 'move' each character by)
+            var cipherKey=Number(document.getElementById("cipherKey").value);
+            
+            //This variable holds the decrypted string - We encrypt with 26-key to decrypt the string
+            var outputString = caesarCipherString(userInput, cipherKey);
+
+            //Show the results
+            document.getElementById("keyMap").value = userInput +'\n' + outputString;       
+        }
+        
+        //This function copies the text in the output textbox to the clipboard
+        function copyToClipboard(){
+            //Get the text that we want to copy to the clipboard
+            var textToCopy = document.getElementById("output").value;
+            
+            //Copy it to the clipboard
+            navigator.clipboard.writeText(textToCopy);
+            
+            //Tell the user that we've copied it
+            displayMessage('Text has been copied to the clipboard');
+        }
+        
+        //This function prevents the user from manually typing in a number that is not between min and max
+        function checkInput(inputField){
+            if (Number(inputField.value)>Number(inputField.max)){
+                //The number is too large so make it equal the max instead
+                inputField.value=inputField.max;
+            }
+            else if(Number(inputField.value)<Number(inputField.min)){
+                //The number is too small so make it equal the min instead
+                inputField.value=inputField.min;
+            };
+        }        
+        
+        function caesarCipherString(userInput, cipherKey){
+            //This variable holds each character code in the input text
+            var charCodeInput;
+
+            //This variable holds each character code in the output text
+            var charCodeOutput;
+
+            //This variable holds the character that is the result of performing the Caesar Cipher on each character
+            var charOutput;
+
+            //This variable holds the output string
+            var outputString="";
+
+
+            //We will loop over each character in the string, get the character code, perform the Caesar cipher with a key and then build up the output string
+
+            //This variable is used to loop over each character in the string
+            var charCounter;
+
+            //This loop runs for each character in the string - it starts at 0 because the charCodeAt() function starts at 0 as well
+            for (charCounter = 0; charCounter < userInput.length; charCounter++) {
+                //Get the character code
+                charCodeInput = userInput.charCodeAt(charCounter);
+
+                //Perform the Caesar Cipher on the character code and get the new code back
+                charCodeOutput=caesarCipherCharacter(charCodeInput,cipherKey);
+
+                //Turn the new code into a character
+                charOutput=String.fromCharCode(charCodeOutput);
+
+                //Add the new character to the end of the output string
+                outputString+=charOutput;
+                }
+            return outputString;
+            
+        }
+        //This function takes a character code and a cipher key, and performs the caesar cipher
+        function caesarCipherCharacter(code, key){
+            //We only want to perform the cipher on A-Z (character codes 65-90) and a-z (character codes 97-122)
+            //For any other character code we don't do anything so we just return it unaltered
+            var minUpper=65;
+            var maxUpper=90;
+            var minLower=97;
+            var maxLower=122;
+
+            //This variable holds the new code after the cipher has been carried out
+            var newCode;
+
+            //This checks if the character code is one of the codes we care about
+            if ((code>=minUpper && code<=maxUpper) || (code>=minLower && code<=maxLower)){
+                //This is a character code that we need to shift by the amount of characters specified in the key
+
+                //Carry out the cipher by moving the number of characters specified in the key
+                newCode = code + key;
+
+                //We need to be careful not to move past Z or z.  Instead, we have to wrap around to the start of the range
+                if (code>=minUpper && code<=maxUpper){
+                    //We were given an upper case character so let's check if the new code has gone past Z
+                    if (newCode > maxUpper){
+                        //We've gone past Z so we need to work backwards rather than forwards
+                        newCode = code - 26 + key;
+                    }
+                }
+                else {
+                    //We were given a lower case character so let's check if the new code has gone past z
+                    if (newCode > maxLower){
+                        //We've gone past Z so we need to work backwards rather than forwards
+                        newCode = code - 26 + key;
+                    }
+                }
+            }
+            else{
+                //Don't touch this character as it's not one we care about
+                //Just return it unaltered
+                newCode = code;
+            }
+            return (newCode);
+        }
+        
+        function displayMessage(theMessage){
+            document.getElementById("divMessage").innerHTML = theMessage;
+        }
+
+     </script>
+
+</body>
+</html>
