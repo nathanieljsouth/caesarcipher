@@ -123,8 +123,18 @@
             
             //Tell the user that we've copied it
             displayMessage('Text has been copied to the clipboard');
+            
+            //Set up a timer to get rid of the message in 5 seconds
+            setTimeout(clearText, 5000);
+
         }
         
+    
+        //This function clears the message
+        function clearText(){
+            document.getElementById("divMessage").innerHTML = "";
+        }
+
         //This function prevents the user from manually typing in a number that is not between min and max
         function checkInput(inputField){
             if (Number(inputField.value)>Number(inputField.max)){

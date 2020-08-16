@@ -26,10 +26,15 @@
 <p>A few issues that I found and fixed are listed here.</p>
     
 <p>I found that although the HTML5 number input type allows me to set a min and max value, these only apply to the spin buttons.  If the user types in a bigger / smaller number then the input field does not prevent this.  I added code to handle the 'onInput' event that checks whether the input is between the min and max values - if it's greater than the max then the code sets the value to the max, if it's smaller than the min the code sets the value to the min.  In the image below I tried to type in 51 but the value gets set to 25</p>
-<img width="100%" src="images/numbercorrect.png"><br/>
+<img width="50%" src="images/numbercorrect.png"><br/>
 <p>Decryption - I was inspired by the circular wheel design of my icon.  I recognised that there are two ways to decrypt a Caesar Cipher.  You can either reverse the encryption by the same key value (so encrypt with a key of 5 and decrypt with a key of -5), or you can encrypt with a key of 5 and encrypt again with a key of 21 to fully rotate the cipher back to the original values.  By using this 'encrypt twice' approach for decryption, I can simply use exactly the same code for encryption and decryption, minimising the required code and reducing the chance of errors. </p>
 <p>I found using Github's planner boards really useful as it allowed me to plan my work really clearly.  Also, when I discovered something that I needed to add, the board gave me the perfect place to record it.  I liked the way the board encourages me to move through the stages of development , test and completion.  Here's a screenshot of my board while I was building the app.</p>
-<img width="100%" src="images/planner1.png"><br/>
+<img width="50%" src="images/planner1.png"><br/>
 <p>The 'value' property of the number input field actually returns a string, not the numeric value.  This meant that I had to convert it to a number (using the Number() menthod) before using it in math operations.  This caused me some testing and debugging pain!</p>
+<p>I noticed that when the user copies the output, a message is displayed (which is correct), but it stays there so if the user copies the output again there is no indication that the copy has worked.  The image below shows the message.</p>
+<img width="50%" src="images/ClipboardBefore.png"><br/>
+<p>I decided that it would be better to make the message disappear after a certain amount of time.  To do this I had to look into running code on a timer in javascript.</p>
+    
+
 </body>
 </html>
