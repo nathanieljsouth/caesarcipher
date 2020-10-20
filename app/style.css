@@ -96,3 +96,11 @@ img:hover {
 .form .resizable {
     resize: vertical;
 }
+
+button {
+    color: black;
+}
+
+.showlink {
+    text-decoration: underline;
+}

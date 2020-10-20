@@ -24,6 +24,10 @@ a {
     text-decoration: none;
 }
 
+.showlink {
+    text-decoration: underline;
+}
+
 .navlink{
     font-size: 30pt;
     color: #6ad5cb;
@@ -50,3 +54,9 @@ button {
     color: black;
 }
 
+textarea {
+    color: black;
+    text-align: left;
+    width: 500px;
+    height: 500px;
+}

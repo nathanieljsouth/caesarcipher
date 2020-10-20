@@ -24,13 +24,19 @@
 
     <div>
         <p class="sectionheader">Enter some text to encrypt or decrypt, select a key and then hit the appropriate button!</p>
+        <p>Click the 'Quote of the day' button to populate the input with the today's quote!</p>
         <p>Click the output textbox to copy the results to the clipboard.</p>
         <p>The 'Brute Force' button decrypts the input using all possible keys.</p>
+        
+        <p>
+        The Quote of The Day is powered by 'They Said So' - for more info see <a target="_blank" class="showlink"  href="https://theysaidso.com">TheySaidSo</a>
+        </p>
         <br/>
        
     </div>
     <div class="form">
         <label>Input</label> <textarea id="userInput"></textarea><br/><br/><br/>
+        <button type="button" onclick="getQuote()">Click me to get the quote of the day!</button><br><br>
         <label>Key</label> <input type="number" id="cipherKey" min="1" max="25" value="1" onchange="displayMap();" onInput="checkInput(this);"/><br/><br/>
         <label>Map</label> <textarea id="keyMap" readonly></textarea><br/><br/><br/>
         <label>Output</label> <textarea class="resizable" id="output" onclick="copyToClipboard();" readonly></textarea><br/><br/><br>
@@ -230,6 +236,56 @@
             document.getElementById("divMessage").innerHTML = theMessage;
         }
 
+        
+        
+        //This function gets the quote of the day from the "quotes.rest" website
+        function getQuote(){
+
+            //Set up a variable to hold the request options object//We're making a GET call and want to follow any redirects sent back by the server
+            var requestOptions = {
+              method: 'GET',
+              redirect: 'follow'
+            };
+
+            //The fetch method hits the website and brings back the results
+            //The first 'then' tells the website that we want the results in json format
+            //json stands for 'Javascript Object Notation'
+            //We want json because it makes it easy to pull the data out as the json response is an object//The second 'then' shows the quote
+            //The 'catch' shows the error if one happens
+            fetch("https://quotes.rest/qod?language=en", requestOptions)
+              .then(response => response.json())
+              .then(result => showQuote(result))
+              .catch(error => showError(error));
+        }
+
+        //This function shows the quote and the author
+        function showQuote(QuoteResult){
+            //This variable holds the quote of the day (it uses the properties of the quote object we get back as json from the server)
+            var qod = QuoteResult.contents.quotes[0];
+
+            //Show the quote
+            document.getElementById('userInput').value=qod.quote;
+
+            //Show the author in the message area
+            displayMessage("The Quote of the day is by " + qod.author);
+            
+            //Set up a timer to get rid of the message in 5 seconds
+            setTimeout(clearText, 5000);
+            
+        };
+
+        //This function shows the error 
+        function showError(ErrorToShow){
+            
+            //Tell the user what happened
+            displayMessage(ErrorToShow);
+            
+            //Set up a timer to get rid of the message in 5 seconds
+            setTimeout(clearText, 5000);
+        };
+        
+        
+        
      </script>
 
 </body>

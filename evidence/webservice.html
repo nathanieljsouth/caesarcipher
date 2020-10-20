@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Project Evidence</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .flex-container > div {
+          background-color: #6ad5cb;
+          width: 500px;
+          margin: 10px;
+          text-align: center;
+          line-height: 50px;
+          font-size: 30px;
+        }
+
+        .flex-container > div > span {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+<div class="navigation">
+    <ul>
+        <li>
+            <a href="index.html"><img class="navimage" width="90px" src="images/mainicon.jpg"></a>
+        </li>
+        <li>
+            <a class="navlink" href="index.html">Back to Menu</a>
+        </li>
+    </ul>
+</div>
+<h1>Calling a webservice</h1>
+
+<p>
+I want users to be able to encrypt the quote of the day, so I need to call a web service and get the quote back.  This turned out to be fairly difficult as it required the use of a new method called 'fetch' that uses a different approach to normal functions in that the call to fetch doesn't block until it completes.
+</p>
+<p>
+The Quote of The Day is powered by 'They Said So' - for more info see <a target="_blank" class="showlink"  href="https://theysaidso.com">TheySaidSo</a>
+</p>
+
+    <div id="divQuote">The quote will go here</div>
+    <div id="divAuthor">The author will go here</div>
+    <br>
+    <div id="divJSON">The full JSON will go in the textarea below</div>
+    
+    <textarea id="textJSON"></textarea>
+    <div id="divError"></div><br>
+    <button type="button" onclick="getQuote()">Click me to get the quote of the day!</button><br><br>
+
+    <a href="javascript:viewSource();">View Source</a>
+    
+    <script>
+      function viewSource(){;
+            var source = "<html>";
+            source += document.getElementsByTagName('html')[0].innerHTML;
+            source += "</html>";
+            source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            source = "<pre>"+source+"</pre>";
+            sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+            sourceWindow.document.write(source);
+            sourceWindow.document.close(); 
+            if(window.focus) sourceWindow.focus();
+        }  
+
+        //This function gets the quote of the day from the "quotes.rest" website
+        function getQuote(){
+
+            //Set up a variable to hold the request options object//We're making a GET call and want to follow any redirects sent back by the server
+            var requestOptions = {
+              method: 'GET',
+              redirect: 'follow'
+            };
+
+            //The fetch method hits the website and brings back the results
+            //The first 'then' tells the website that we want the results in json format
+            //json stands for 'Javascript Object Notation'
+            //We want json because it makes it easy to pull the data out as the json response is an object//The second 'then' shows the quote
+            //The 'catch' shows the error if one happens
+            fetch("https://quotes.rest/qod?language=en", requestOptions)
+              .then(response => response.json())
+              .then(result => showQuote(result))
+              .catch(error => showError(error));
+        }
+
+        //This function shows the quote and the author
+        function showQuote(QuoteResult){
+            //Show the full JSON
+            document.getElementById('textJSON').value=JSON.stringify(QuoteResult, null, 2);
+            
+            //This variable holds the quote of the day (it uses the properties of the quote object we get back as json from the server)
+            var qod = QuoteResult.contents.quotes[0];
+
+            //Show the quote
+            document.getElementById('divQuote').innerHTML=qod.quote;
+
+            //Show the author
+            document.getElementById('divAuthor').innerHTML=qod.author;
+            
+            
+        };
+
+        //This function shows the error 
+        function showError(ErrorToShow){
+            document.getElementById('divError').innerHTML=ErrorToShow;
+        };
+
+
+    </script>
+    </body>
+</html>
