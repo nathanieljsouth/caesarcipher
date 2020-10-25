@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher</title>
+    <link href="https://fonts.googleapis.com/css?family=Cardo|Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="flexboxstyle.css">
+</head>
+
+<body>
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="index.html"><img class="navimage" title="Reminder List" width="90px" src="images/mainicon.jpg"></a>
+            </li>
+            <li>
+                Caesar Cipher Instructions
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <p class="appHeader">
+            New to the Caesar Cipher app? No problem, here's how to use it!
+        </p>
+        
+        <p class="appHeader">
+            Overview
+        </p>
+
+        <p class="appInfo">
+            The Caesar Cipher app encrypts or decrypts a text string based on the 'cipher key'.  <br/>
+            The key tells the app how many characters each letter in the input string should be moved forward.  <br/>
+            For example, if you encrypted the string 'ABC' with a key of 5, the result would be 'FGH' because 'F' is 5 characters after 'A', 'G' is 5 characters after 'B' and so on.<br/><br/>
+            There's a great Wikipaedia page describing the Caesar Cipher - <a class="showlink" href="https://en.wikipedia.org/wiki/Caesar_cipher">Click here to check it out</a><br/><br/>
+            This is what the Caesar Cipher app looks like - the coloured boxes around parts of the interface are explained below.
+        </p>
+        
+        <img src="images/Encrypt-step1.png" width="25%" height="25%" /><br/>
+        
+        <p class="appHeader">
+            Encrypting Data
+        </p>
+
+        <p class="appInfo">
+            
+            Step 1 - Type or paste some text into the 'input box' (shown in red in the image).<br/>
+            Instead of typing text in, you can click the 'quote of the day' button to quickly load today's quote into the input box.  This is really useful for testing.<br/><br/>
+            Step 2 - Chose a cipher key between 1 and 25 using the 'key' control (shown in green in the image).  As you change the key you'll see the character map (shown in yellow in the image) update immediately.<br/><br/>
+            Step 3 - Click the 'Encrypt!' button and the results will be shown in the output box (shown in blue in the image).
+            <br/><br/>
+            You can click the output box to immediately copy the results to the clipboard for easy pasting in another application.
+        </p>
+
+        
+        <p class="appHeader">
+            Decrypting Data
+        </p>
+        
+        <p class="appInfo">
+            There are two ways to decrypt an encrypted string:<br/><br/>
+            
+            If you know the cipher key, paste the encrypted string into the input box (shown in red in the image), select the correct cipher key (shown in green in the image) and click the 'Decrypt!' button.  The decrypted string will be shown in the output box (shown in blue in the image).
+            <br/><br/>
+            If you don't know the cipher key, paste the encrypted string into the input box (shown in red) and then click the 'Brute Force Decrypt!' button.  The app will decrypt the string using every possible cipher key and put all the results in the output box (shown in blue in the image).  You'll need to look through all the results and figure out which one makes sense!
+            <br/><br/>
+            You can click the output box to copy the results to the clipboard for easy pasting in another application.
+        </p>        
+    </div>
+   
+
+</body>
+</html>

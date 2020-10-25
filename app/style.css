@@ -104,3 +104,11 @@ button {
 .showlink {
     text-decoration: underline;
 }
+
+.appHeader{
+    font-size: 15pt;
+}
+
+.appInfo{
+    color: lightgray
+}

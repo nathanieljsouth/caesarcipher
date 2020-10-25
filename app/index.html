@@ -23,13 +23,17 @@
     </div>
 
     <div>
-        <p class="sectionheader">Enter some text to encrypt or decrypt, select a key and then hit the appropriate button!</p>
-        <p>Click the 'Quote of the day' button to populate the input with the today's quote!</p>
-        <p>Click the output textbox to copy the results to the clipboard.</p>
-        <p>The 'Brute Force' button decrypts the input using all possible keys.</p>
-        
-        <p>
-        The Quote of The Day is powered by 'They Said So' - for more info see <a target="_blank" class="showlink"  href="https://theysaidso.com">TheySaidSo</a>
+        <p class="appHeader">
+            Welcome to the Caesar Cipher app!
+        </p>
+        <p class="appInfo">
+            Quick Instructions: <br/>
+            1 - Enter some text in the input box to encrypt or decrypt...<br/>
+            ...or click the 'Quote of the day' button to populate the input box with today's quote<br/>
+            2 - Select a cipher key (between 1 and 25)<br/>
+            3 - Click the appropriate button to encrypt, decrypt or try a brute force decryption<br/><br/>
+            (You can click the output textbox to copy the  results to the clipboard)<br/><br/>
+            <a class="showlink" target="_blank" href="instructions.html">Click here for more detailed instructions</a>
         </p>
         <br/>
        
@@ -41,11 +45,12 @@
         <label>Map</label> <textarea id="keyMap" readonly></textarea><br/><br/><br/>
         <label>Output</label> <textarea class="resizable" id="output" onclick="copyToClipboard();" readonly></textarea><br/><br/><br>
         <div>
-        <a class="buttonLeft" href="javascript:encrypt();">Encrypt!</a> 
-        <a class="buttonRight" href="javascript:decrypt();">Decrypt!</a>
-        <a class="buttonCentre" href="javascript:bruteforcedecrypt();">Brute Force Decrypt!</a><br/><br/>
+        <button type="button" class="buttonLeft" onclick="encrypt();">Encrypt!</button> 
+        <button type="button" class="buttonRight" onclick="decrypt();">Decrypt!</button>
+        <button type="button" class="buttonCentre" onclick="bruteforcedecrypt();">Brute Force Decrypt!</button><br/><br/>
         </div>
         <div id="divMessage" class="message"></div>
+        <p class="appInfo"> The Quote of The Day is powered by <a target="_blank" class="showlink"  href="https://theysaidso.com">TheySaidSo</a></p>
     </div>
     
     <script>
